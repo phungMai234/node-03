@@ -1,12 +1,16 @@
 const express = require('express');
 const app = express();
 
+let config = require("config");
+
+let mongo_port = config.get("MONGO_PATH");
+let mongo_host = config.get("MONGO_HOST");
+
 let mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1/my_db',{ useNewUrlParser: true });
+mongoose.connect(`mongodb://${mongo_host}:${mongo_port}/my_db`,{ useNewUrlParser: true });
 
 const BodyParser = require('body-parser');
 
-let config = require("config");
 
 let port = config.get("PORT");
 let host = config.get("HOST");
