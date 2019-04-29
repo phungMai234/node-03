@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
-    res.send('Hello, world!')
+    res.status(200).send('Hello, world!')
 });
 
 const controlCtrl = require('/home/mai/Documents/node-03/controllers/control.js');

@@ -17,7 +17,7 @@ exports.postTodos= (req, res) => {
     // luu doc
     task.save()
         .then(doc => {
-            res.send({
+            res.status(200).send({
                 success: true,
                 data: doc
             })
@@ -36,7 +36,7 @@ exports.getTodos= (req, res) => {
     const {id} = req.params;
     todo.findById({_id:id})
         .then(doc => {
-            res.send({
+            res.status(200).send({
                 success: true,
                 data: doc
             })
@@ -58,7 +58,7 @@ exports.postTodosId= (req, res) => {
 
     todo.findByIdAndUpdate({_id: id}, {title: title})
         .then(doc => {
-            res.send({
+            res.status(200).send({
                 success: true,
                 data: doc
             })
@@ -105,7 +105,7 @@ exports.delTodos= (req, res) => {
     const {id} = req.params;
     todo.findByIdAndRemove({_id: id})
         .then(()=> {
-            res.status({
+            res.status(200).send({
                 success: true,
                 data:true
             })
