@@ -72,7 +72,7 @@ exports.postTodosId= (req, res) => {
 };
 
 //K ban toi dung sai cua cau nay vi chua ro de
-exports.postTodosIdToogle= (req, res) => {
+/*exports.postTodosIdToogle= (req, res) => {
     const {id} = req.params;
     const {title} = req.body;
     console.log(req.body);
@@ -99,7 +99,7 @@ exports.postTodosIdToogle= (req, res) => {
                 error: error.message
             })
         })
-};
+};*/
 
 exports.delTodos= (req, res) => {
     const {id} = req.params;
