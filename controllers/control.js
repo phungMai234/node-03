@@ -1,5 +1,5 @@
 
-let todo = require('./model/model1');
+let todo = require('../model/model1');
 //done
 exports.postTodos= (req, res) => {
 
