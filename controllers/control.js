@@ -1,5 +1,5 @@
 
-let todo = require('/home/mai/Documents/node-03/model/model1.js');
+let todo = require('./model/model1');
 //done
 exports.postTodos= (req, res) => {
 
