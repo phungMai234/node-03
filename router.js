@@ -7,9 +7,9 @@ router.get('/', (req, res) => {
 const controlCtrl = require('./controllers/control');
 
 router.post('/todos', controlCtrl.postTodos);
-router.get('/todos/:id', controlCtrl.getTodos);
-router.post('/todos/:id', controlCtrl.postTodosId);
-//router.post('/todos/toogle/:id', controlCtrl.postTodosIdToogle);
+router.get('/todos/:id', controlCtrl.getTodosId);
+router.post('/todos/:id', controlCtrl.postTodosId); //find id and update title
+router.post('/todos/:id/toogle', controlCtrl.postTodosIdToogle); //find id and update status completed
 router.delete('/todos/:id', controlCtrl.delTodos);
 
 exports.router = router;

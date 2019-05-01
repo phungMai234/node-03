@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 
 
+
 const todoSchema = mongoose.Schema({
     title: {
-        type: String
+        type: String,
+        trim: true
     },
     completed:{
         type: Boolean

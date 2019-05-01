@@ -1,15 +1,13 @@
 
 let todo = require('../model/model1');
-//done
+
 exports.postTodos= (req, res) => {
 
     const {title} = req.body;
     console.log(req.body);
 
     // tao document
-    //Cai id la cai mongodb no tu sinh ra
     const task = new todo({
-        //_id: id,
         title: title,
         completed: false,
         created: Date.now()
@@ -30,10 +28,11 @@ exports.postTodos= (req, res) => {
         })
 };
 
-//done
-exports.getTodos= (req, res) => {
+
+exports.getTodosId= (req, res) => {
 
     const {id} = req.params;
+
     todo.findById({_id:id})
         .then(doc => {
             res.status(200).send({
@@ -49,7 +48,6 @@ exports.getTodos= (req, res) => {
         })
 };
 
-//done
 exports.postTodosId= (req, res) => {
 
     const {title} = req.body; // thay bang task 2
@@ -71,35 +69,27 @@ exports.postTodosId= (req, res) => {
         })
 };
 
-//K ban toi dung sai cua cau nay vi chua ro de
-/*exports.postTodosIdToogle= (req, res) => {
+
+exports.postTodosIdToogle= (req, res) => {
+
     const {id} = req.params;
-    const {title} = req.body;
-    console.log(req.body);
+    let tmp = todo.findById(id);
 
-    // tao document
-    const task = new todo({
-        _id:id,
-        title: title,
-        completed: false,
-        created: Date.now()
-    });
-    // luu doc
-    task.save()
+    todo.updateOne(tmp,{$set:{completed: !tmp.completed}})
 
-        .then(doc => {
-            res.send({
-                success: true,
-                data: doc
-            })
+    .then(doc=> {
+        res.status(200).send({
+            success: true,
+            data: doc
         })
-        .catch(error => {
-            res.status({
-                success: false,
-                error: error.message
-            })
+    })
+    .catch(error => {
+        res.status({
+            success: false,
+            error: error.message
         })
-};*/
+    })
+};
 
 exports.delTodos= (req, res) => {
     const {id} = req.params;
