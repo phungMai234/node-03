@@ -12,8 +12,8 @@ mongoose.connect(`mongodb://${mongo_host}:${mongo_port}/my_db`,{ useNewUrlParser
 const BodyParser = require('body-parser');
 
 
-let port = config.get("PORT");
-let host = config.get("HOST");
+let port = process.env.PORT || config.get("PORT");
+let host = process.env.HOST || config.get("HOST");
 
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));

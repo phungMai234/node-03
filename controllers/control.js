@@ -15,7 +15,7 @@ exports.postTodos= (req, res) => {
     // luu doc
     task.save()
         .then(doc => {
-            res.statusCode(200).send({
+            res.status(200).send({
                 success: true,
                 data: doc
             })
@@ -35,7 +35,7 @@ exports.getTodosId= (req, res) => {
 
     todo.findById({_id:id})
         .then(doc => {
-            res.statusCode(200).send({
+            res.status(200).send({
                 success: true,
                 data: doc
             })
@@ -54,9 +54,9 @@ exports.postTodosId= (req, res) => {
     console.log(title);
     const {id} = req.params;
 
-    todo.findByIdAndUpdate({_id: id}, {title: title})
+    todo.findByIdAndUpdate({_id: id}, {title: title},{new:true})
         .then(doc => {
-            res.statusCode(200).send({
+            res.status(200).send({
                 success: true,
                 data: doc
             })
@@ -88,7 +88,7 @@ exports.postTodosIdToogle= (req, res) => {
         });
         todo.findById({_id:id})
             .then(doc=> {
-                res.statusCode(200).send({
+                res.status(200).send({
                     success: true,
                     data: doc
                 })
@@ -112,7 +112,7 @@ exports.delTodos= (req, res) => {
     const {id} = req.params;
     todo.findByIdAndRemove({_id: id})
         .then(()=> {
-            res.statusCode(200).send({
+            res.status(200).send({
                 success: true,
                 data:true
             })
