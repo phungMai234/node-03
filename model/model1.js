@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
-
-
-
+const db = require("../database");
 const todoSchema = mongoose.Schema({
     title: {
         type: String,
@@ -17,7 +15,7 @@ const todoSchema = mongoose.Schema({
     }
 });
 
-const Model1 = mongoose.model('Model1', todoSchema);
+const Model1 = db.model('Model1', todoSchema);
 
 
 module.exports = Model1;
