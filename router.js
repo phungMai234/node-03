@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
+router.use('/', (req, res) => {
     res.status(200).send('Hello, world!')
 });
 
