@@ -73,15 +73,32 @@ exports.postTodosId= (req, res) => {
 exports.postTodosIdToogle= (req, res) => {
 
     const {id} = req.params;
-    let tmp = todo.findById(id);
 
-    todo.updateOne(tmp,{$set:{completed: !tmp.completed}})
+    todo.findById({_id:id}).
+        then(tmp=>{
 
-    .then(doc=> {
-        res.status(200).send({
-            success: true,
-            data: doc
-        })
+        let completed = tmp.completed;
+        console.log(completed);
+
+        todo.updateOne(tmp,{$set:{completed: !completed}}, function(err, res){
+            if(!err)
+                console.log("done");
+            else
+                console.log(err);
+        });
+        todo.findById({_id:id})
+            .then(doc=> {
+                res.status(200).send({
+                    success: true,
+                    data: doc
+                })
+            })
+            .catch(error => {
+                res.status({
+                    success: false,
+                    error: error.message
+                })
+            })
     })
     .catch(error => {
         res.status({
