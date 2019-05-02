@@ -17,9 +17,6 @@ let host = process.env.HOST || config.get("HOST");
 
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
-app.use('/', (req, res) => {
-    res.status(200).send('Hello, world!')
-});
 app.use(require('./router').router);
 
 app.listen(port, host, function (err) {
