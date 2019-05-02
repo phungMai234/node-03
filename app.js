@@ -17,7 +17,7 @@ let host = process.env.HOST || config.get("HOST");
 
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
-app.post('/', (req, res) => {
+app.get('/', (req, res) => {
     res.status(200).send('Hello, world!')
 });
 app.use("/todos", require('./router').router);

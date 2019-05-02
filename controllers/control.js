@@ -4,7 +4,7 @@ let todo = require('../model/model1');
 exports.postTodos= (req, res) => {
 
     const {title} = req.body;
-    console.log(req.body);
+
 
     // tao document
     const task = new todo({
