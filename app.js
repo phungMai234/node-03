@@ -16,7 +16,7 @@ let port = config.get("PORT");
 let host = config.get("HOST");
 
 app.use(BodyParser.json());
-app.use(BodyParser.urlencoded({ extended: false }));
+app.use(BodyParser.urlencoded({ extended: true }));
 
 app.use(require('./router').router);
 
