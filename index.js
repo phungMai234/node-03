@@ -10,14 +10,11 @@ let host = process.env.HOST || config.get("HOST");
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
+
 app.get('/', (req, res) => {
     res.status(200).send('Hello, world!')
 });
-
-app.use("/todos", require('./router/Todo'));
-app.use("/", require('./router/User'));
-app.use("/", require('./router/Category'));
-app.use("/", require('./router/TodoCategory'));
+app.use("/", require('./router/index'));
 
 app.listen(port, host, function (err) {
 

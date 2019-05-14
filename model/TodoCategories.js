@@ -8,7 +8,7 @@ const TodoCateSchema = mongoose.Schema({
     cate_id:{
         type: String
     }
-});
+}, {versionKey: false});
 
 const TodoCategories = db.model('TodoCategories', TodoCateSchema);
 

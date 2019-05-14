@@ -5,13 +5,14 @@ const TodoCategory = require('../model/TodoCategories');
 
 exports.createTodo = async (req, res) => {
     try {
-        const {title, user} = req.body;
+        const {title} = req.body;
 
-        console.log(title);
+        const users = await User.find({});
+        const userId = users[0]._id;
 
         const todo = new Todo({
             title: title,
-            user:user,
+            user:userId,
             completed: false,
             created: Date.now()
         });
@@ -40,15 +41,15 @@ exports.getTodoById = async (req, res) => {
     const {id} = req.params;
     try {
         let todo = await Todo.findById(id);
-        console.log(typeof todo);
-        let b = {};
-        b.id = todo._id;
-        b.user = todo.user;
+
+
+        let tmp = {};
+        tmp.id = todo._id;
+        tmp.title = todo.title;
         const docUser = await User.findById(todo.user);
-        console.log(b);
-        b.User = docUser;
-        todo.cate = {hello: "abc"};
-        //cate
+        tmp.user = docUser;
+
+
         const docTodoCate = await TodoCategory.find({todo_id: todo._id.toString()});
         let arrayCate = [];
         let i;
@@ -56,10 +57,16 @@ exports.getTodoById = async (req, res) => {
             const docCate = await Category.findById(docTodoCate[i].cate_id);
             arrayCate.push(docCate);
         }
-        //todo.categories =" hello";
+
+
+        tmp.categories = arrayCate;
+        tmp.completed= todo.completed;
+        tmp.created = todo.created;
+
+
         res.status(200).send({
             success: true,
-            data:b
+            data:tmp
         })
     }
     catch (e) {
@@ -96,12 +103,25 @@ exports.updateTitleTodo =async (req, res) => {
     try {
         const todo = await Todo.findByIdAndUpdate({_id:id},{title: title}, {new: true});
 
+        let tmp = {};
+        tmp.id = todo._id;
+        tmp.title = todo.title;
         const docUser = await User.findById(todo.user);
-        todo.user = docUser;
+        tmp.user = docUser;
+
 
         const docTodoCate = await TodoCategory.find({todo_id: todo._id.toString()});
-        const docCate = await Category.findById(docTodoCate.cate_id);
-        todo.categories = docCate;
+        let arrayCate = [];
+        let i;
+        for(i = 0; i < docTodoCate.length; i++) {
+            const docCate = await Category.findById(docTodoCate[i].cate_id);
+            arrayCate.push(docCate);
+        }
+
+
+        tmp.categories = arrayCate;
+        tmp.completed= todo.completed;
+        tmp.created = todo.created;
 
         res.status(200).send({
             success: true,
@@ -127,12 +147,25 @@ exports.updateStatusTodo = async (req, res) => {
         /*update*/
         await Todo.updateOne(todo,{$set: {completed: !completed}});
 
+        let tmp = {};
+        tmp.id = todo._id;
+        tmp.title = todo.title;
         const docUser = await User.findById(todo.user);
-        todo.user = docUser;
+        tmp.user = docUser;
+
 
         const docTodoCate = await TodoCategory.find({todo_id: todo._id.toString()});
-        const docCate = await Category.findById(docTodoCate.cate_id);
-        todo.categories = docCate;
+        let arrayCate = [];
+        let i;
+        for(i = 0; i < docTodoCate.length; i++) {
+            const docCate = await Category.findById(docTodoCate[i].cate_id);
+            arrayCate.push(docCate);
+        }
+
+
+        tmp.categories = arrayCate;
+        tmp.completed= todo.completed;
+        tmp.created = todo.created;
 
         res.status(200).send({
             success: true,
@@ -165,3 +198,4 @@ exports.delTodos = async (req, res) => {
         })
     }
 };
+

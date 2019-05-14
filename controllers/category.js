@@ -1,12 +1,18 @@
 const Category = require('../model/Categories');
 const User = require("../model/Users");
+let Todo = require('../model/Todos');
+const TodoCategory = require('../model/TodoCategories');
+
 
 exports.creatCate = async (req, res) =>{
-    const {name, user} = req.body;
+    const {name} = req.body;
     try {
+        const users = await User.find({});
+        const userId = users[0]._id;
+
         const category = new Category({
             name: name,
-            user:user
+            user:userId
         });
         const doc = await category.save();
 
@@ -28,8 +34,6 @@ exports.creatCate = async (req, res) =>{
 exports.listCate = async (req, res) =>{
     try {
         let categories = await Category.find();
-
-        console.log(categories.size);
 
         return res.send({
             success: true,
@@ -101,3 +105,28 @@ exports.delCateById = async (req, res) =>{
         })
     }
 };
+exports.getTodoByCateId = async (req, res) =>{
+    const {id} = req.params;
+    try {
+
+        const docTodoCate = await TodoCategory.find({cate_id: id.toString()});
+        let arrayTodo = [];
+        let i;
+        for(i = 0; i < docTodoCate.length; i++) {
+            const docTodo = await Todo.findById(docTodoCate[i].todo_id);
+            arrayTodo.push(docTodo);
+        }
+        return res.send({
+            success: true,
+            data: arrayTodo
+        });
+
+
+    }
+    catch (e) {
+        res.send({
+            success: false,
+            message: e.message,
+        })
+    }
+}

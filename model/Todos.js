@@ -16,7 +16,7 @@ const todoSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
-});
+}, {versionKey: false});
 
 const Todos = db.model('Todos', todoSchema);
 
